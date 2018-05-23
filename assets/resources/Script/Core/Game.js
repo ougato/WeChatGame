@@ -44,10 +44,7 @@ let Game = cc.Class({
      * 构造
      */
     ctor() {
-        // // 网络Socket
-        // this.m_objSocket = null;
-        // // 游戏ID
-        // this.m_nGameId = 0;
+
 
     },
 
@@ -75,32 +72,6 @@ let Game = cc.Class({
     initRes() {
 
     },
-    //
-    // /**
-    //  * 获取游戏ID
-    //  * @returns {number|*}
-    //  */
-    // getGameId() {
-    //     return this.m_nGameId;
-    // },
-    //
-    // /**
-    //  * 设置游戏ID
-    //  * @param id {number} 游戏ID
-    //  */
-    // setGameId( id ) {
-    //     this.m_nGameId = id;
-    // },
-    //
-    // /**
-    //  * 运行
-    //  */
-    // run( sceneName ) {
-    //     if( Utils.isNull( sceneName ) ) {
-    //         sceneName = G.Config.getDefaultScene();
-    //     }
-    //     G.ViewManager.replaceScene( sceneName );
-    // },
 
 });
 

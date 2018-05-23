@@ -7,21 +7,15 @@
  * 全局 对象
  */
 
-let Game = require( "Game" );
-let Config = require( "Config" );
-
 let AudioManager = require( "AudioManager" );
 let EventManager = require( "EventManager" );
 let ViewManager = require( "ViewManager" );
 let StoreManager = require( "StoreManager" );
+let NetManager = require( "NetManager" );
+
+let Game = require( "Game" );
 
 let Global = {
-
-    // 游戏
-    Game: Game.getInstance(),
-    // 配置
-    Config: Config,
-
     // 声音管理器
     AudioManager: AudioManager.getInstance(),
     // 事件管理器
@@ -30,7 +24,11 @@ let Global = {
     ViewManager: ViewManager.getInstance(),
     // 存储管理器
     StoreManager: StoreManager.getInstance(),
+    // 网络管理器
+    NetManager: NetManager.getInstance(),
 
+    // 游戏
+    Game: Game.getInstance(),
 };
 
 module.exports = Global;

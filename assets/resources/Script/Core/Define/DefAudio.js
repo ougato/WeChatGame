@@ -6,7 +6,7 @@
 /**
  * 状态
  */
-let STATE = {
+let State = {
     ERROR: -1,
     INITIALZING: 0,
     PLAYING: 1,
@@ -16,19 +16,19 @@ let STATE = {
 /**
  * 音效
  */
-let SOUND = {
+let Sound = {
     MJ2T: "resources/Audio/Sound/MJ2T.mp3",
 };
 
 /**
  * 音乐
  */
-let MUSIC = {
+let Music = {
     GAME_BGM: "resources/Audio/Music/BGM.mp3",
 };
 
 module.exports = {
-    STATE: STATE,
-    SOUND: SOUND,
-    MUSIC: MUSIC,
+    State: State,
+    Sound: Sound,
+    Music: Music,
 };

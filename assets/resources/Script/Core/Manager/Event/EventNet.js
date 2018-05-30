@@ -33,7 +33,7 @@ let EventNet = cc.Class({
      * @param event
      */
     sendEvent( event ) {
-        if( event.getEventId() === DefEvent.EVENT.NET ) {
+        if( event.getEventId() === DefEvent.Event.NET ) {
             this.onEvent( event );
         } else {
             EventCenter.getInstance().sendEvent( event );

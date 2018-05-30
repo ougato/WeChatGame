@@ -6,7 +6,7 @@
 /**
  * 语言国家
  */
-const COUNTRY = {
+const Country = {
     // 中国（大陆）
     CH: "CH",
     // 英国
@@ -19,6 +19,4 @@ const COUNTRY = {
     TW: "TW",
 };
 
-module.exports = {
-    COUNTRY: COUNTRY,
-};
+module.exports = Country;

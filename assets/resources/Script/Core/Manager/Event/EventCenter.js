@@ -46,10 +46,10 @@ let EventCenter = cc.Class({
     sendEvent( event ) {
         let eventId = event.getEventId();
         switch( eventId ) {
-            case DefEvent.EVENT.VIEW:
+            case DefEvent.Event.VIEW:
                 EventManager.getEventView().sendEvent( event );
                 break;
-            case DefEvent.EVENT.NET:
+            case DefEvent.Event.NET:
                 EventManager.getEventNet().sendEvent( event );
                 break;
             default:

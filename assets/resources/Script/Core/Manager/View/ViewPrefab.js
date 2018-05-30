@@ -18,7 +18,7 @@ let ViewPrefab = cc.Class({
      */
     ctor() {
         // 层级
-        this.m_nZOrder = DefView.ZORDER.UI;
+        this.m_nZOrder = DefView.Zorder.UI;
 
         // 初始化数据
         this.initData( arguments[0], arguments[1], arguments[2] );

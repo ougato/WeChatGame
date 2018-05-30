@@ -33,7 +33,7 @@ let EventView = cc.Class({
      * @param event
      */
     sendEvent( event ) {
-        if( event.getEventId() === DefEvent.EVENT.VIEW ) {
+        if( event.getEventId() === DefEvent.Event.VIEW ) {
             this.onEvent( event );
         } else {
             EventCenter.getInstance().sendEvent( event );

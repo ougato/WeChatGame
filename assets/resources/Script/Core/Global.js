@@ -13,6 +13,7 @@ let ViewManager = require( "ViewManager" );
 let StoreManager = require( "StoreManager" );
 let NetManager = require( "NetManager" );
 
+let I18N = require( "I18N" );
 let Game = require( "Game" );
 
 let Global = {
@@ -27,8 +28,11 @@ let Global = {
     // 网络管理器
     NetManager: NetManager.getInstance(),
 
+    // 国际语言
+    I18N: I18N.getInstance(),
     // 游戏
     Game: Game.getInstance(),
+
 };
 
 module.exports = Global;

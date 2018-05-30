@@ -7,26 +7,11 @@
  * Language（English）
  */
 
-// log of text
-const LOG = {
-    // system - 0 - 999
-    0: "",
+const language = {
+    // 打印日志 0 - 10000
+
+    // 游戏内容 10000 - 20000
 
 };
 
-// game in view of text
-const GAME = {
-    // login/lobby - 0 - 999
-    0: "",
-
-    // dice - 1000 - 1999
-    1000: "",
-
-    // hoodle - 2000 - 2999
-    2000: "",
-};
-
-module.exports = {
-    LOG: LOG,
-    GAME: GAME,
-};
+module.exports = language;

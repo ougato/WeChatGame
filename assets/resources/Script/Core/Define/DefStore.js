@@ -4,9 +4,9 @@
  */
 
 /**
- * KEY值
+ * Key值
  */
-const KEY = {
+const Key = {
     // 语言
     Language: "Language",
     // 版本
@@ -15,5 +15,5 @@ const KEY = {
 };
 
 module.exports = {
-    KEY: KEY,
+    Key: Key,
 };

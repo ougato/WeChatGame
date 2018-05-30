@@ -102,7 +102,7 @@ let ViewManager = cc.Class({
                 return ;
             }
         }
-        zorder = Utils.isNull( zorder ) ? DefView.ZORDER.UI : zorder;
+        zorder = Utils.isNull( zorder ) ? DefView.Zorder.UI : zorder;
         let view = new ViewPrefab( DefView.PREFAB_PATH + pathName, data, zorder );
         view.load( function( node ) {
             if( !Utils.isNull( oldView ) ) {
@@ -110,7 +110,7 @@ let ViewManager = cc.Class({
             }
             this.m_mapPrefab.set( pathName, view );
             this.m_listPrefab.insert( view );
-            let zorderName = Utils.getKeyByValue( DefView.ZORDER, zorder );
+            let zorderName = Utils.getKeyByValue( DefView.Zorder, zorder );
             let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" ).getChildByName( zorderName );
             zorderNode.addChild( node, zorder );
             this.m_objPrefab = view;
@@ -167,12 +167,12 @@ let ViewManager = cc.Class({
             }
             let canvas = scene.getChildByName( "Canvas" );
             let designResolution = canvas.getComponent( cc.Canvas ).designResolution;
-            for( let key in DefView.ZORDER ) {
+            for( let key in DefView.Zorder ) {
                 let node = new cc.Node();
                 node.setName( key );
                 node.setContentSize( designResolution.width, designResolution.height );
                 node.setPosition( 0, 0 );
-                canvas.addChild( node, DefView.ZORDER[key] );
+                canvas.addChild( node, DefView.Zorder[key] );
             }
             let view = new ViewScene( name, data );
             view.setScene( scene );

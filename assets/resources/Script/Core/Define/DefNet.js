@@ -14,11 +14,11 @@ let State = {
     // 连接
     CONNECT: 1,
     // 连上
-    CONNECTED: 2,
+    OPEN: 2,
     // 重连
     RECONNECT: 3,
     // 断开
-    DISCONNECT: 4,
+    CLOSE: 4,
 
 
 };

@@ -11,7 +11,7 @@ const SPAN = 100;
 /**
  * 视图 层级
  */
-const ZORDER = {
+const Zorder = {
     BOTTOM: SPAN * 0,
     UI: SPAN * 1,
     TOP: SPAN * 2,
@@ -32,24 +32,24 @@ const SCENE_PATH = "Scene/";
 /**
  * 场景
  */
-const SCENE = {
+const Scene = {
     WelCome: "WelCome",
     Lobby: "Lobby",
 
 };
 
 /**
- * PREFAB
+ * 预制
  */
-const PREFAB = {
+const Prefab = {
 
 };
 
 module.exports = {
     SPAN: SPAN,
-    ZORDER: ZORDER,
+    Zorder: Zorder,
     PREFAB_PATH: PREFAB_PATH,
     SCENE_PATH: SCENE_PATH,
-    SCENE: SCENE,
-    PREFAB: PREFAB,
+    Scene: Scene,
+    Prefab: Prefab,
 };

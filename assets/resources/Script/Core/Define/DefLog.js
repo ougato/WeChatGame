@@ -6,7 +6,7 @@
 /**
  * 错误类型
  */
-const TYPE = {
+const Type = {
 
 
 };
@@ -14,19 +14,19 @@ const TYPE = {
 /**
  * 程序员打印
  */
-const CODER = {
+const Coder = {
 
 };
 
 /**
  * 玩家打印
  */
-const PLAYER = {
+const Player = {
 
 };
 
 module.exports = {
-    TYPE: TYPE,
-    CODER: CODER,
-    PLAYER: PLAYER,
+    Type: Type,
+    Coder: Coder,
+    Player: Player,
 };

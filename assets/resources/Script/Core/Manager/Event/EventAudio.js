@@ -26,7 +26,7 @@ let EventAudio = cc.Class({
      * @param event
      */
     sendEvent( event ) {
-        if( event.getEventId() === DefEvent.EVENT.AUDIO ) {
+        if( event.getEventId() === DefEvent.Event.AUDIO ) {
             this.onEvent( event );
         } else {
             EventCenter.getInstance().sendEvent( event );

@@ -8,11 +8,15 @@
  * @type {{}}
  */
 
-let Config = {
+let DefLanguage = require( "DefLanguage" );
+
+const Config = {
     // 是否调试模式
     isDebug: false,
     // 默认场景
     defaultScene: "Lobby",
+    // 默认语言
+    defaultLanguage: DefLanguage.CN,
 
 };
 

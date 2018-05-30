@@ -11,7 +11,7 @@ const SPAN = 3000;
 /**
  * 事件ID段
  */
-const EVENT = {
+const Event = {
     VIEW: SPAN * 0,
     NET: SPAN * 1,
     AUDIO: SPAN * 2,
@@ -20,21 +20,21 @@ const EVENT = {
 /**
  * 自定义ID
  */
-const CUSTOM = {
+const Custom = {
     // VIEW
-    VIEW_0: EVENT.VIEW + 0,
-    VIEW_1: EVENT.VIEW + 1,
-    VIEW_2: EVENT.VIEW + 2,
+    VIEW_0: Event.VIEW + 0,
+    VIEW_1: Event.VIEW + 1,
+    VIEW_2: Event.VIEW + 2,
 
     // NET
-    NET_0: EVENT.NET + 0,
+    NET_0: Event.NET + 0,
 
     // AUDIO
-    AUDIO_0: EVENT.AUDIO + 0,
+    AUDIO_0: Event.AUDIO + 0,
 };
 
 module.exports = {
     SPAN: SPAN,
-    EVENT: EVENT,
-    CUSTOM: CUSTOM,
+    Event: Event,
+    Custom: Custom,
 };

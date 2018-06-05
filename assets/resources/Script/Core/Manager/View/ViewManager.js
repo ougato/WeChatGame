@@ -16,6 +16,7 @@ let ViewPrefab = require( "ViewPrefab" );
 let ViewScene = require( "ViewScene" );
 let DefView = require( "DefView" );
 let Utils = require( "Utils" );
+let Queue = require( "Queue" );
 
 // 实例化对象
 let instance = null;
@@ -53,7 +54,6 @@ let ViewManager = cc.Class({
      * 构造
      */
     ctor() {
-
         // 当前场景
         this.m_objScene = null;
         // 当前预制体
@@ -64,6 +64,9 @@ let ViewManager = cc.Class({
         this.m_mapPrefab = new Map();
         // 视图 链表
         this.m_listPrefab = new List();
+
+        // 提示缓存数据
+        this.m_arrTipsCacheData = new Queue;
 
     },
 
@@ -80,7 +83,18 @@ let ViewManager = cc.Class({
         this.m_listPrefab = null
     },
 
-    openTips( msg,  ) {
+    /**
+     * 打开飘动提示
+     * @param msg
+     */
+    openTips( msg ) {
+
+    },
+
+    /**
+     * 关闭飘动提示
+     */
+    closeTips() {
 
     },
 
@@ -136,18 +150,16 @@ let ViewManager = cc.Class({
     },
 
     /**
-     * 查找预制体
-     */
-    findPrefab( pathName ) {
-        return this.m_mapPrefab.get( pathName );
-    },
-
-    /**
      * 获取当前预制体
-     * @returns {object|null}
+     * @param pathName {string} 预制名（prefab后的 路径+预制名）
+     * @returns {object|null} 1.当前预制体 2.根据pathName找到的预制体
      */
-    getPrefab() {
-        return this.m_objPrefab;
+    getPrefab( pathName ) {
+        let prefab = this.m_objPrefab;
+        if( Utils.isNull( pathName ) ) {
+            prefab = this.m_mapPrefab.get( pathName );
+        }
+        return prefab;
     },
 
     /**

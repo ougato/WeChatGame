@@ -8,41 +8,30 @@
  * @type {Function}
  */
 
-let DefLog = require( "DefLog" );
-
 let Log = {
 
     /**
      * 错误提示
+     * @param text {string} 提示文字
      */
-    error( text, type ) {
-        let suffix = "";
-        if( !Utils.isNull( type ) ) {
-            suffix = this.getText( type );
-        }
-        cc.error( text + suffix );
+    error( text ) {
+        cc.error( text );
     },
 
     /**
      * 警告提示
+     * @param text {string} 提示文字
      */
-    warn( text, type ) {
-        let suffix = "";
-        if( !Utils.isNull( type ) ) {
-            suffix = this.getText( type );
-        }
-        cc.warn( text + suffix );
+    warn( text ) {
+        cc.warn( text );
     },
 
     /**
      * 正常提示
+     * @param text {string} 提示文字
      */
-    print( text, type ) {
-        let suffix = "";
-        if( !Utils.isNull( type ) ) {
-            suffix = this.getText( type );
-        }
-        cc.log( text + suffix );
+    print( text ) {
+        cc.log( text );
     },
 
 };

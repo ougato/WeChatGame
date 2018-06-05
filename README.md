@@ -1,11 +1,11 @@
 # 框架说明文档
 
-## AudioManager
+##  [**AudioManager**](https://github.com/ougato/WeChatGame/blob/master/assets/resources/Script/Core/Manager/Audio/AudioManager.js) **声音管理器**
 
 > * 控制应用内的声音管理器
 > * **`播放 停止 暂停 恢复`**
 
-### 播放
+### **播放**
 
 ```javascript
     /**
@@ -26,7 +26,7 @@
     AudioManager.playSound( path, volume );
 ```
 
-### 停止
+### **停止**
 
 ```javascript
     /**
@@ -46,7 +46,7 @@
     AudioManager.stopAll()
 ```
 
-### 暂停
+### **暂停**
 
 ```javascript
     /**
@@ -66,7 +66,7 @@
     AudioManager.pauseAll();
 ```
 
-### 恢复
+### **恢复**
 
 ```javascript
     /**
@@ -85,12 +85,3 @@
      */
     AudioManager.resumeAll();
 ```
-
-
-## EventManager
-
-## ViewManager
-
-## StoreManager
-
-## NetManager

@@ -59,7 +59,7 @@ let AudioManager = cc.Class({
      * 销毁
      */
     destroy() {
-        cc.audioEngine.stopAll();
+        this.stopAll();
         this.m_objMusic = null;
         this.m_mapSound.clear();
         this.m_mapSound = null;
@@ -69,7 +69,8 @@ let AudioManager = cc.Class({
      * 播放音乐
      * @param path {string} 路径+文件
      * @param loop {boolean} 是否循环
-     * @param volume {float} 音量
+     * @param volume {number} 音量
+     * @returns id {number} 音乐id
      */
     playMusic( path, loop, volume ) {
         if( !Utils.isNull( this.m_objMusic ) ) {
@@ -80,25 +81,21 @@ let AudioManager = cc.Class({
         let id = audio.play();
         cc.audioEngine.setFinishCallback( id, this.onPlayMusicFinish.bind( this ) );
         this.m_objMusic = audio;
+        return id;
     },
 
     /**
      * 播放音效
      * @param path {string} 路径+文件
-     * @param volume {float} 音量
+     * @param volume {number} 音量
+     * @returns id {number} 音效id
      */
     playSound( path, volume ) {
         let audio = new AudioSound( path, volume );
         let id = audio.play();
         cc.audioEngine.setFinishCallback( id, this.onPlaySoundFinish.bind( this ) );
         this.m_mapSound.set( id, audio );
-    },
-
-    /**
-     * 停止所有声音
-     */
-    stopAll() {
-        cc.audioEngine.stopAll();
+        return id;
     },
 
     /**
@@ -125,6 +122,13 @@ let AudioManager = cc.Class({
     },
 
     /**
+     * 停止所有声音
+     */
+    stopAll() {
+        cc.audioEngine.stopAll();
+    },
+
+    /**
      * 暂停音乐
      */
     pauseMusic() {
@@ -146,6 +150,13 @@ let AudioManager = cc.Class({
     },
 
     /**
+     * 暂停所有声音
+     */
+    pauseAll() {
+        cc.audioEngine.pauseAll();
+    },
+
+    /**
      * 恢复音乐
      */
     resumeMusic() {
@@ -164,6 +175,13 @@ let AudioManager = cc.Class({
         if( !Utils.isNull( audio ) ) {
             audio.resume();
         }
+    },
+
+    /**
+     * 恢复所有声音
+     */
+    resumeAll() {
+        cc.audioEngine.resumeAll();
     },
 
     /**

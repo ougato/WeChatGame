@@ -4,29 +4,12 @@
  */
 
 /**
- * 错误类型
+ * 日志
+ * @type {{}}
  */
-const Type = {
-
-
-};
-
-/**
- * 程序员打印
- */
-const Coder = {
+let Log = {
+    0: "当前游戏已存在网络",
 
 };
 
-/**
- * 玩家打印
- */
-const Player = {
-
-};
-
-module.exports = {
-    Type: Type,
-    Coder: Coder,
-    Player: Player,
-};
+module.exports = Log;

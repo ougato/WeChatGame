@@ -88,6 +88,7 @@ cc.Class({
 
     /**
      * 更新UI（子类需要重写）
+     * @param data
      */
     refresh( data ) {
 

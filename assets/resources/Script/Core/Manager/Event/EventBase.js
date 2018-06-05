@@ -8,6 +8,7 @@
  */
 
 let List = require( "List" );
+let Utils = require( "Utils" );
 
 let EventBase = cc.Class({
 

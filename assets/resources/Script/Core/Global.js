@@ -1,5 +1,5 @@
 /**
- * Author: oucheng(ougato@gmail.com)
+ * Author = oucheng(ougato@gmail.com)
  * Copyright (c) 2018-03
  */
 
@@ -16,23 +16,22 @@ let NetManager = require( "NetManager" );
 let I18N = require( "I18N" );
 let Game = require( "Game" );
 
-let Global = {
-    // 声音管理器
-    AudioManager: AudioManager.getInstance(),
-    // 事件管理器
-    EventManager: EventManager.getInstance(),
-    // 视图管理器
-    ViewManager: ViewManager.getInstance(),
-    // 存储管理器
-    StoreManager: StoreManager.getInstance(),
-    // 网络管理器
-    NetManager: NetManager.getInstance(),
+let Global = {};
 
-    // 国际语言
-    I18N: I18N.getInstance(),
-    // 游戏
-    Game: Game.getInstance(),
+// 声音管理器
+Global.AudioManager = AudioManager.getInstance();
+// 事件管理器
+Global.EventManager = EventManager.getInstance();
+// 视图管理器
+Global.ViewManager = ViewManager.getInstance();
+// 存储管理器
+Global.StoreManager = StoreManager.getInstance();
+// 网络管理器
+Global.NetManager = NetManager.getInstance();
 
-};
+// 国际语言
+Global.I18N = I18N.getInstance();
+// 游戏
+Global.Game = Game.getInstance();
 
 module.exports = Global;

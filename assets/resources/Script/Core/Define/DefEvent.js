@@ -14,7 +14,7 @@ const SPAN = 3000;
 const Event = {
     VIEW: SPAN * 0,
     NET: SPAN * 1,
-    AUDIO: SPAN * 2,
+
 };
 
 /**
@@ -29,8 +29,6 @@ const Custom = {
     // NET
     NET_0: Event.NET + 0,
 
-    // AUDIO
-    AUDIO_0: Event.AUDIO + 0,
 };
 
 module.exports = {

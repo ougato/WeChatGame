@@ -31,6 +31,12 @@ let AudioBase = cc.Class({
         this.initData( arguments[0], arguments[1], arguments[2] );
     },
 
+    /**
+     * 初始化数据
+     * @param path {string} 路径
+     * @param loop {boolean} 循环
+     * @param volume {number} 音量
+     */
     initData( path, loop, volume ) {
         if( !Utils.isNull( path ) ) {
             this.m_strPath = path;

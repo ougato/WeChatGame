@@ -1,78 +1,41 @@
-/**
- * Author: oucheng(ougato@gmail.com)
- * Copyright (c) 2018-03
- */
+// Learn cc.Class:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
+// Learn Attribute:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
+// Learn life-cycle callbacks:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-/**
- * 游戏
- */
+cc.Class({
+    extends: cc.Component,
 
-let Utils = require( "Utils" );
+    properties: {
+        // foo: {
+        //     // ATTRIBUTES:
+        //     default: null,        // The default value will be used only when the component attaching
+        //                           // to a node for the first time
+        //     type: cc.SpriteFrame, // optional, default is typeof default
+        //     serializable: true,   // optional, default is true
+        // },
+        // bar: {
+        //     get () {
+        //         return this._bar;
+        //     },
+        //     set (value) {
+        //         this._bar = value;
+        //     }
+        // },
+    },
 
-// 实例化对象
-let instance = null;
+    // LIFE-CYCLE CALLBACKS:
 
-let Game = cc.Class({
+    // onLoad () {},
 
-    /**
-     * 静态
-     */
-    statics: {
-        /**
-         * 获取实例
-         * @returns {Function}
-         */
-        getInstance() {
-            if( Utils.isNull( instance ) ) {
-                instance = new Game();
-            }
-            return instance;
-        },
-
-        /**
-         * 销毁实例
-         */
-        destroy() {
-            if( !Utils.isNull( instance ) ) {
-                instance.destroy();
-            }
-        },
+    start () {
 
     },
 
-    /**
-     * 构造
-     */
-    ctor() {
-
-
-    },
-
-    /**
-     * 初始化游戏需要的模块
-     */
-    init() {
-        // 初始化SDK
-        this.initSDK();
-        // 初始化资源
-        this.initRes();
-
-    },
-
-    /**
-     * 初始化SDK
-     */
-    initSDK() {
-
-    },
-
-    /**
-     * 初始化资源
-     */
-    initRes() {
-
-    },
-
+    // update (dt) {},
 });
-
-module.exports = Game;

@@ -4,19 +4,15 @@
  */
 
 /**
- * Author: oucheng(ougato@gmail.com)
- * Copyright (c) 2018-03
- */
-
-/**
  * 视图管理器
  */
+
 let List = require( "List" );
 let ViewPrefab = require( "ViewPrefab" );
 let ViewScene = require( "ViewScene" );
 let DefView = require( "DefView" );
 let Utils = require( "Utils" );
-let Queue = require( "Queue" );
+let Tips = require( "Tips" );
 
 // 实例化对象
 let instance = null;
@@ -58,6 +54,8 @@ let ViewManager = cc.Class({
         this.m_objScene = null;
         // 当前预制体
         this.m_objPrefab = null;
+        // 提示视图对象
+        this.m_objTips = new Tips();
 
         //（维护视图 我使用了两个结构 map用来快速查找 list用来方便视图的打开先后顺序）
         // 视图 字典映射
@@ -65,37 +63,48 @@ let ViewManager = cc.Class({
         // 视图 链表
         this.m_listPrefab = new List();
 
-        // 提示缓存数据
-        this.m_arrTipsCacheData = new Queue;
-
     },
 
     /**
      * 销毁
      */
     destroy() {
-        this.m_objScene = null;
-        this.m_objPrefab = null;
+        if( !Utils.isNull( this.m_objScene ) ) {
+            this.m_objScene.destroy();
+            this.m_objScene = null;
+        }
+        if( !Utils.isNull( this.m_objPrefab ) ) {
+            this.m_objPrefab.destroy();
+            this.m_objPrefab = null;
+        }
+        if( !Utils.isNull( this.m_objTips ) ) {
+            this.m_objTips.destroy();
+            this.m_objTips = null;
+        }
+        if( !Utils.isNull( this.m_mapPrefab ) ) {
+            this.m_mapPrefab.clear();
+            this.m_mapPrefab = null;
+        }
+        if( !Utils.isNull( this.m_listPrefab ) ) {
+            this.m_listPrefab.clear();
+            this.m_listPrefab = null;
+        }
 
-        this.m_mapPrefab.clear();
-        this.m_mapPrefab = null;
-        this.m_listPrefab.clear();
-        this.m_listPrefab = null
     },
 
     /**
      * 打开飘动提示
-     * @param msg
+     * @param text {string} 提示文字
      */
-    openTips( msg ) {
-
+    openTips( text ) {
+        this.m_objTips.show( text );
     },
 
     /**
      * 关闭飘动提示
      */
     closeTips() {
-
+        this.m_objTips.hide();
     },
 
     /**
@@ -163,7 +172,7 @@ let ViewManager = cc.Class({
     },
 
     /**
-     * 替换场景
+     * 切换场景
      * @param name
      * @param data
      * @param callback {function} 场景加载完后回调

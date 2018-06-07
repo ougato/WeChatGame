@@ -13,6 +13,10 @@ let ViewScene = require( "ViewScene" );
 let DefView = require( "DefView" );
 let Utils = require( "Utils" );
 let Tips = require( "Tips" );
+let LoadingHttp = require( "LoadingHttp" );
+let LoadingWebsocket = require( "LoadingWebsocket" );
+let LoadingScene = require( "LoadingScene" );
+let DefLoading = require( "DefLoading" );
 
 // 实例化对象
 let instance = null;
@@ -56,6 +60,9 @@ let ViewManager = cc.Class({
         this.m_objPrefab = null;
         // 提示视图对象
         this.m_objTips = new Tips();
+        // 加载视图对象
+        this.m_objLoadingHttp = new LoadingHttp();
+
 
         //（维护视图 我使用了两个结构 map用来快速查找 list用来方便视图的打开先后顺序）
         // 视图 字典映射
@@ -90,6 +97,56 @@ let ViewManager = cc.Class({
             this.m_listPrefab = null;
         }
 
+    },
+
+    /**
+     * 打开加载视图
+     * @param type {number} 加载类型(DefLoading定义)
+     */
+    openLoading( type ) {
+        function _removeFirst( arg ) {
+            let args = [];
+            for( let i = 1; i < arg.length; ++i ) {
+                args[i-1] = arg[i];
+            }
+            return args;
+        }
+
+        let args = _removeFirst( arguments );
+        switch( type ) {
+            case DefLoading.HTTP:
+                this.m_objLoadingHttp.show( args );
+                break;
+            case DefLoading.WEBSOCKET:
+
+                break;
+            case DefLoading.SCENE:
+
+                break;
+            default:
+
+                break;
+        }
+    },
+
+    /**
+     * 关闭加载视图
+     */
+    closeLoading( type ){
+        switch( type ) {
+            case DefLoading.HTTP:
+                this.m_objLoadingHttp.hide();
+                break;
+            case DefLoading.WEBSOCKET:
+
+                break;
+            case DefLoading.SCENE:
+
+                break;
+            default:
+
+                break;
+        }
     },
 
     /**

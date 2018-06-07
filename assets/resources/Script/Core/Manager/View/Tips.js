@@ -4,7 +4,7 @@
  */
 
 /**
- * 提示
+ * 提示视图
  */
 
 let DefView = require( "DefView" );
@@ -51,6 +51,7 @@ let Tips = cc.Class({
         this.m_objNode.opacity = 255;
         this.m_objNode.setPosition( ORIGIN_POS.x, ORIGIN_POS.y );
 
+        let nodeRoot = this.m_objNode;
         let nodeSpriteBG = this.m_objNode.getChildByName( "Sprite_BG" );
         let nodeLabelText = this.m_objNode.getChildByName( "Label_Text" );
 
@@ -58,6 +59,7 @@ let Tips = cc.Class({
         compLabelText.string = this.m_strCurrText;
 
         let textSize = nodeLabelText.getContentSize();
+        nodeRoot.setContentSize( textSize.width + CONTOUR, textSize.height + CONTOUR );
         nodeSpriteBG.setContentSize( textSize.width + CONTOUR, textSize.height + CONTOUR );
 
     },

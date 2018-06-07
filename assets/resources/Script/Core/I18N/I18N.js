@@ -8,6 +8,9 @@
  */
 
 let Utils = require( "Utils" );
+let DefStore = require( "DefStore" );
+let Config = require( "Config" );
+let DefLog = require( "DefLog" );
 
 // 实例化对象
 let instance = null;
@@ -45,7 +48,7 @@ let I18N = cc.Class({
      */
     ctor() {
         // 语言
-        this.m_objLanguage = null;
+        this.m_objContent = null;
     },
 
     /**
@@ -57,6 +60,39 @@ let I18N = cc.Class({
         }
     },
 
+    /**
+     * 获取内容
+     * @param index {number|string} 内容下标
+     * @param [] 变长参数
+     */
+    get( index ) {
+        let content = this.m_objContent[index];
+        if( Utils.isNull( content ) ) {
+            Log.error( DefLog[3] );
+            return "";
+        }
+        return content;
+    },
+
+    /**
+     * 设置语言
+     * @param language
+     */
+    setLanguage( language ) {
+        G.StoreManager.set( DefStore.Language, language );
+        this.m_objContent = require( language );
+    },
+
+    /**
+     * 获取语言
+     */
+    getLanguage() {
+        let language =  G.StoreManager.get( DefStore.Language );
+        if( Utils.isNull( language ) ) {
+            language = Config.defaultLanguage;
+        }
+        return language;
+    },
 
 });
 

@@ -133,8 +133,10 @@ let ViewManager = cc.Class({
             }
             this.m_mapPrefab.set( pathName, view );
             this.m_listPrefab.insert( view );
-            let zorderName = Utils.getKeyByValue( DefView.Zorder, zorder );
-            let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" ).getChildByName( zorderName );
+            // let zorderName = Utils.getKeyByValue( DefView.Zorder, zorder );
+            // let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" ).getChildByName( zorderName );
+            // zorderNode.addChild( node, zorder );
+            let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" );
             zorderNode.addChild( node, zorder );
             this.m_objPrefab = view;
             view.refresh();
@@ -149,7 +151,7 @@ let ViewManager = cc.Class({
      * 关闭预制体
      * @param pathName {string} 预制名（prefab后的 路径+预制名）
      */
-    closePrefab( pathName ){
+    closePrefab( pathName ) {
         let view = this.m_mapPrefab.get( pathName );
         if( !Utils.isNull( view ) ) {
             view.destroy();
@@ -177,7 +179,7 @@ let ViewManager = cc.Class({
      * @param data
      * @param callback {function} 场景加载完后回调
      */
-    replaceScene( name, data, callback ){
+    replaceScene( name, data, callback ) {
         cc.director.loadScene( name, function( _, scene ) {
             if( !Utils.isNull( this.m_objScene ) ) {
                 this.m_objScene.destroy();
@@ -187,14 +189,14 @@ let ViewManager = cc.Class({
                 this.m_listPrefab.clear();
             }
             let canvas = scene.getChildByName( "Canvas" );
-            let designResolution = canvas.getComponent( cc.Canvas ).designResolution;
-            for( let key in DefView.Zorder ) {
-                let node = new cc.Node();
-                node.setName( key );
-                node.setContentSize( designResolution.width, designResolution.height );
-                node.setPosition( 0, 0 );
-                canvas.addChild( node, DefView.Zorder[key] );
-            }
+            // let designResolution = canvas.getComponent( cc.Canvas ).designResolution;
+            // for( let key in DefView.Zorder ) {
+            //     let node = new cc.Node();
+            //     node.setName( key );
+            //     node.setContentSize( designResolution.width, designResolution.height );
+            //     node.setPosition( 0, 0 );
+            //     canvas.addChild( node, DefView.Zorder[key] );
+            // }
             let view = new ViewScene( name, data );
             view.setScene( scene );
             view.setNode( canvas );
@@ -212,6 +214,9 @@ let ViewManager = cc.Class({
      * @returns {object|null}
      */
     getScene() {
+        if( Utils.isNull( this.m_objScene ) ) {
+            this.m_objScene = cc.director.getScene();
+        }
         return this.m_objScene;
     },
 

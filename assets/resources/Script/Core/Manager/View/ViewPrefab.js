@@ -9,6 +9,7 @@
 
 let ViewBase = require( "ViewBase" );
 let DefView = require( "DefView" );
+let Utils = require( "Utils" );
 
 let ViewPrefab = cc.Class({
     extends: ViewBase,

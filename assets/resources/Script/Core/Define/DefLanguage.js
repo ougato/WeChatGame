@@ -8,7 +8,7 @@
  */
 const Country = {
     // 中国（大陆）
-    CH: "CH",
+    CN: "CN",
     // 英国
     EN: "EN",
     // 中国（香港）

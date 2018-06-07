@@ -37,22 +37,20 @@ let Http = {
         }
 
         let xhr = new XMLHttpRequest();
-        xhr.timeout = TIMEOUT;
+        xhr.timeout = TIMEOUT * 1000;
         xhr.onreadystatechange = function() {
             if ( xhr.readyState === 4 && ( xhr.status >= 200 && xhr.status < 400 ) ) {
                 let response = xhr.responseText;
                 try {
                     let result = JSON.parse( response );
                     callback( result );
-                } catch(e) {
-                    Tips.create(  );
+                } catch( e ) {
+                    G.ViewManager.openTips( G.I18N.get( 10001 ) );
                 }
             } else {
-                G.Tips.show(  );
+                G.ViewManager.openTips(  )
             }
         };
-
-
 
 
     },

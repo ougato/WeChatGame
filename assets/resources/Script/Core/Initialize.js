@@ -21,6 +21,9 @@ cc.Class({
      * 加载视图前运行
      */
     start() {
+        let str = "aaa . %s";
+        str.format( "fff" );
+        cc.log( str );
         // 初始化
         this.init();
     },

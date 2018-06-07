@@ -14,6 +14,4 @@ const Key = {
     // ...
 };
 
-module.exports = {
-    Key: Key,
-};
+module.exports = Key;

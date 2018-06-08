@@ -11,6 +11,8 @@
 let Utils = require( "Utils" );
 let DefLoading = require( "DefLoading" );
 
+let Http = require( "Http" );
+
 cc.Class({
     extends: cc.Component,
 
@@ -24,20 +26,33 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        this.index = 0;
+        this.arrLoading = [];
+        this.loading1 = null;
+        this.loading2 = null;
+    },
+
+    callfunc() {
 
     },
 
     onClick() {
-        G.ViewManager.openLoading( DefLoading.HTTP, this.pBG.node, this.pFrame.node );
-    },
-
-    onClose() {
-        G.ViewManager.closeLoading( DefLoading.HTTP );
+        // this.arrLoading[this.index++] = G.ViewManager.openLoadingHttp( this.pFrame.node );
+        Http.get( "http://localhost:7456/" );
     },
 
     onClick2() {
-        G.ViewManager.openLoading( DefLoading.HTTP, this.pFrame.node );
-    }
+        // this.loading2 = G.ViewManager.openLoadingHttp( this.pFrame.node );
+    },
+
+    onClose1() {
+        G.ViewManager.closeLoadingHttp( this.arrLoading[--this.index] );
+    },
+
+    onClose2() {
+        G.ViewManager.closeLoadingHttp( this.arrLoading[--this.index] );
+    },
+
 
     // update (dt) {},
 });

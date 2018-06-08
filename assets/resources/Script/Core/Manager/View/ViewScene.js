@@ -8,6 +8,7 @@
  */
 
 let ViewBase = require( "ViewBase" );
+let Utils = require( "Utils" );
 
 let ViewScene = cc.Class({
     extends: ViewBase,

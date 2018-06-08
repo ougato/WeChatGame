@@ -22,42 +22,56 @@ let Http = {
      * @param url {string} 链接
      * @param str {string} [数据]
      * @param callback {function} [回调]
+     * @param loadingParentNode {node} [loading父节点]
      * @private
      */
     _request() {
-        G.ViewManager.openLoading( DefLoading.HTTP );
         let url = arguments[0];
         let data = null;
         let callback = null;
+        let loadingParentNode = null;
         let len = arguments.length;
 
-        if( len === 2 ) {
+        if( len === 3 ) {
             callback = arguments[1];
-        } else if( len === 3 ) {
+            loadingParentNode = arguments[2];
+        } else if( len === 4 ) {
             data = arguments[1];
             callback = arguments[2];
+            loadingParentNode = arguments[3];
         }
+
+        if( Utils.isNull( loadingParentNode ) ) {
+            loadingParentNode = G.ViewManager.getScene().getNode();
+        }
+
+        let loadingHttp = G.ViewManager.openLoadingHttp( loadingParentNode );
 
         let xhr = new XMLHttpRequest();
         xhr.timeout = TIMEOUT * 1000;
         xhr.onreadystatechange = function() {
+            let strTips = null;
             if ( xhr.readyState === 4 && ( xhr.status >= 200 && xhr.status < 400 ) ) {
                 let response = xhr.responseText;
                 try {
                     let result = JSON.parse( response );
                     callback( result );
                 } catch( e ) {
-                    G.ViewManager.openTips( G.I18N.get( 1 ) );
+                    strTips = G.I18N.get( 1 );
                 }
             } else {
-                G.ViewManager.openTips( Utils.format( G.I18N.get( 2 ), ( xhr.status ) ) );
+                strTips = Utils.format( G.I18N.get( 2 ), ( xhr.status ) );
             }
-            G.ViewManager.closeLoading( DefLoading.HTTP );
+
+            G.ViewManager.closeLoadingHttp( loadingHttp );
+            // if( !Utils.isNull( strTips ) ) {
+            //     G.ViewManager.openTips( strTips );
+            // }
         };
-        if( len === 2 ) {
+        if( len === 3 ) {
             xhr.open( "GET", url, true );
             xhr.send();
-        } else if( len === 3 ) {
+        } else if( len === 4 ) {
             xhr.open( "POST", url, true );
             if( Utils.isObject( data ) ) {
                 try {
@@ -76,8 +90,9 @@ let Http = {
      * @param url {string} 链接
      * @param str {string} 数据
      * @param callback {function} 回调
+     * @param node {node} 父节点
      */
-    post( url, str, callback ) {
+    post( url, str, callback, node ) {
         if( !Utils.isString( url ) ) {
             Log.error( DefLog[1] );
             return null;
@@ -85,28 +100,21 @@ let Http = {
         if( !Utils.isString( str ) ) {
             str = "";
         }
-        if( !Utils.isObject( callback ) ) {
-            Log.error( DefLog[2] );
-            return null;
-        }
-        this._request( url, str, callback );
+        this._request( url, str, callback, node );
     },
 
     /**
      * GET请求
      * @param url {string} 链接
      * @param callback {function} 回调
+     * @param node {node} 父节点
      */
-    get( url, callback ) {
+    get( url, callback, node ) {
         if( !Utils.isString( url ) ) {
             Log.error( DefLog[1] );
             return null;
         }
-        if( !Utils.isObject( callback ) ) {
-            Log.error( DefLog[2] );
-            return null;
-        }
-        this._request( url, callback );
+        this._request( url, callback, node );
     },
 };
 

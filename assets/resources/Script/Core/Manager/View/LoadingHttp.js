@@ -43,12 +43,14 @@ let LoadingHttp = cc.Class({
      */
     initView( validNode, loadingNode ) {
         let nodeRoot = loadingNode;
-        let nodeSpriteBG = loadingNode.getChildByName( "Sprite_BG" );
-        let nodeLabelLoading = loadingNode.getChildByName( "Label_Loading" );
+        let nodeSpriteBG = nodeRoot.getChildByName( "Sprite_BG" );
+        let nodeLabelLoading = nodeRoot.getChildByName( "Label_Loading" );
         this.m_arrNodeAction[this.m_nNodeCount] = loadingNode.getChildByName( "Sprite_Loading" );
+
         let validNodeSize = validNode.getContentSize();
         nodeRoot.setContentSize( validNodeSize );
         nodeSpriteBG.setContentSize( validNodeSize );
+
         let compLabelLoading = nodeLabelLoading.getComponent( cc.Label );
         compLabelLoading.string = G.I18N.get( 4 );
     },
@@ -64,9 +66,9 @@ let LoadingHttp = cc.Class({
 
     /**
      * 显示
-     * @param [] {node} 组件节点
+     * @param nodes {node} 组件节点
      */
-    show() {
+    show( nodes ) {
         function _isExistNode( nodes, node ) {
             let isExist = false;
             for( let i = 0; i < nodes.length; ++i ) {
@@ -82,10 +84,8 @@ let LoadingHttp = cc.Class({
         //     this.hide();
         // }
 
-        let args = arguments[0];
-
-        for( let i = 0; i < args.length; ++i ) {
-            let validNode = args[i];
+        for( let i = 0; i < nodes.length; ++i ) {
+            let validNode = nodes[i];
             if( !Utils.isNull( validNode ) && !_isExistNode( this.m_arrParentNode, validNode ) && cc.isValid( validNode ) ) {
                 cc.loader.loadRes( PATH_NAME, function( _, prefab ) {
                     let loadingNode = cc.instantiate( prefab );
@@ -99,6 +99,7 @@ let LoadingHttp = cc.Class({
 
             }
         }
+        cc.log( "" );
     },
 
     /**

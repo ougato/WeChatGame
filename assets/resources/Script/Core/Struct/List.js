@@ -8,6 +8,7 @@
  */
 
 let Node = require( "Node" );
+let Utils = require( "Utils" );
 
 let List = cc.Class({
 
@@ -136,12 +137,12 @@ let List = cc.Class({
      *
      * 一、通过数据插入到前后链表
      * 参数1 data object 数据
-     * 参数2 about number 前后（-1 前，1, 后）
+     * 参数2 about number 前后（-1 前，1, 后）[默认后]
      *
      * 二、通过节点来插入数据
      * 参数1 node object 节点
      * 参数2 data object 数据
-     * 参数3 about number 前后（-1 前，1 后）
+     * 参数3 about number 前后（-1 前，1 后）[默认后]
      */
     insert() {
         let arg = arguments;

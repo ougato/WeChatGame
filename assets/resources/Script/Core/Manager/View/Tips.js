@@ -95,8 +95,8 @@ let Tips = cc.Class({
         } else {
             cc.loader.loadRes( PATH_NAME, function( _, prefab ) {
                 this.m_objNode = cc.instantiate( prefab );
-                let zorderNode = G.ViewManager.getScene().getChildByName( "Canvas" );
-                zorderNode.addChild( this.m_objNode, DefView.Zorder.Zorder );
+                let zorderNode = G.ViewManager.getScene().getNode();
+                zorderNode.addChild( this.m_objNode, DefView.Zorder.SYSTEM );
                 this.run();
             }.bind( this ) );
         }

@@ -60,8 +60,8 @@ let ViewManager = cc.Class({
         this.m_objPrefab = null;
         // 提示视图对象
         this.m_objTips = new Tips();
-        // 加载视图对象
-        this.m_objLoadingHttp = new LoadingHttp();
+        // LoadingHttp对象列表
+        this.m_listLoadingHttp = new List();
 
 
         //（维护视图 我使用了两个结构 map用来快速查找 list用来方便视图的打开先后顺序）
@@ -100,53 +100,25 @@ let ViewManager = cc.Class({
     },
 
     /**
-     * 打开加载视图
-     * @param type {number} 加载类型(DefLoading定义)
+     * 打开Http Loading
+     * @param [] {node} 任意个节点
      */
-    openLoading( type ) {
-        function _removeFirst( arg ) {
-            let args = [];
-            for( let i = 1; i < arg.length; ++i ) {
-                args[i-1] = arg[i];
-            }
-            return args;
-        }
+    openLoadingHttp() {
+        let nodes = arguments;
+        let loadingHttp = new LoadingHttp();
+        loadingHttp.show( nodes );
+        this.m_listLoadingHttp.insert( loadingHttp );
 
-        let args = _removeFirst( arguments );
-        switch( type ) {
-            case DefLoading.HTTP:
-                this.m_objLoadingHttp.show( args );
-                break;
-            case DefLoading.WEBSOCKET:
-
-                break;
-            case DefLoading.SCENE:
-
-                break;
-            default:
-
-                break;
-        }
+        return loadingHttp;
     },
 
     /**
-     * 关闭加载视图
+     * 关闭Http Loading
+     * @param loadingHttp {object} loadingHtpp对象
      */
-    closeLoading( type ){
-        switch( type ) {
-            case DefLoading.HTTP:
-                this.m_objLoadingHttp.hide();
-                break;
-            case DefLoading.WEBSOCKET:
-
-                break;
-            case DefLoading.SCENE:
-
-                break;
-            default:
-
-                break;
-        }
+    closeLoadingHttp( loadingHttp ){
+        loadingHttp.hide();
+        this.m_listLoadingHttp.delete( loadingHttp );
     },
 
     /**
@@ -224,7 +196,7 @@ let ViewManager = cc.Class({
      */
     getPrefab( pathName ) {
         let prefab = this.m_objPrefab;
-        if( Utils.isNull( pathName ) ) {
+        if( !Utils.isNull( pathName ) ) {
             prefab = this.m_mapPrefab.get( pathName );
         }
         return prefab;
@@ -272,7 +244,13 @@ let ViewManager = cc.Class({
      */
     getScene() {
         if( Utils.isNull( this.m_objScene ) ) {
-            this.m_objScene = cc.director.getScene();
+            let scene = cc.director.getScene();
+            let canvas = scene.getChildByName( "Canvas" );
+            let name = scene.getName();
+            let data = null;
+            this.m_objScene = new ViewScene( name, data );
+            this.m_objScene.setScene( scene );
+            this.m_objScene.setNode( canvas );
         }
         return this.m_objScene;
     },

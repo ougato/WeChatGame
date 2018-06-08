@@ -12,6 +12,8 @@
  * 视图基类
  */
 
+let Utils = require( "Utils" );
+
 let ViewBase = cc.Class({
 
     /**

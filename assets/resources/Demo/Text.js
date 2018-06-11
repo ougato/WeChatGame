@@ -9,7 +9,6 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 let Utils = require( "Utils" );
-let DefLoading = require( "DefLoading" );
 
 let Http = require( "Http" );
 

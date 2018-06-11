@@ -13,10 +13,7 @@ let ViewScene = require( "ViewScene" );
 let DefView = require( "DefView" );
 let Utils = require( "Utils" );
 let Tips = require( "Tips" );
-let LoadingHttp = require( "LoadingHttp" );
-let LoadingWebsocket = require( "LoadingWebsocket" );
-let LoadingScene = require( "LoadingScene" );
-let DefLoading = require( "DefLoading" );
+let Loading = require( "Loading" );
 
 // 实例化对象
 let instance = null;
@@ -60,8 +57,8 @@ let ViewManager = cc.Class({
         this.m_objPrefab = null;
         // 提示视图对象
         this.m_objTips = new Tips();
-        // LoadingHttp对象列表
-        this.m_listLoadingHttp = new List();
+        // 网络加载对象列表
+        this.m_listLoading = new List();
 
 
         //（维护视图 我使用了两个结构 map用来快速查找 list用来方便视图的打开先后顺序）
@@ -100,16 +97,41 @@ let ViewManager = cc.Class({
     },
 
     /**
-     * 打开Http Loading
-     * @param [] {node} 任意个节点
+     * 打开网络加载菊花
+     * @param completeCallbackFunc {function} 菊花打开完成后的回调函数
+     * @param text {string} 文字提示
+     * @param parentNode {node} 菊花挂载父节点
      */
-    openLoadingHttp() {
-        let nodes = arguments;
-        let loadingHttp = new LoadingHttp();
-        loadingHttp.show( nodes );
-        this.m_listLoadingHttp.insert( loadingHttp );
+    openLoaidng( completeCallbackFunc, text, parentNode ) {
+        let loading = new Loading();
+        if( !Utils.isNull( loading ) ) {
+            loading.create( completeCallbackFunc,text, parentNode );
+            this.m_listLoading.insert( loading );
+        }
+    },
 
-        return loadingHttp;
+    /**
+     * 关闭网络加载菊花
+     * @param loading {object} 菊花对象
+     */
+    closeLoading( loading ) {
+        if( !Utils.isNull( loading ) ) {
+            loading.destroy();
+            this.m_listLoading.delete( loading );
+        }
+    },
+
+    /**
+     * 打开Http Loading
+     * @param parentNode {node} 父节点
+     * @param completeCallbackFunc {object} 打开成功后的回调
+     */
+    openLoadingHttp( parentNode, completeCallbackFunc ) {
+        let loadingHttp = new LoadingHttp();
+        loadingHttp.show( parentNode, completeCallbackFunc );
+        this.m_listLoading.insert( loadingHttp );
+
+        completeCallbackFunc(  );
     },
 
     /**
@@ -118,7 +140,7 @@ let ViewManager = cc.Class({
      */
     closeLoadingHttp( loadingHttp ){
         loadingHttp.hide();
-        this.m_listLoadingHttp.delete( loadingHttp );
+        this.m_listLoading.delete( loadingHttp );
     },
 
     /**
@@ -204,8 +226,8 @@ let ViewManager = cc.Class({
 
     /**
      * 切换场景
-     * @param name
-     * @param data
+     * @param name {string} 场景名
+     * @param data {*} 数据
      * @param callback {function} 场景加载完后回调
      */
     replaceScene( name, data, callback ) {

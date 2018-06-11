@@ -40,12 +40,7 @@ let Http = {
             loadingParentNode = arguments[3];
         }
 
-        if( Utils.isNull( loadingParentNode ) ) {
-            loadingParentNode = G.ViewManager.getScene().getNode();
-        }
-
-        let loadingHttp = G.ViewManager.openLoadingHttp( loadingParentNode, function() {
-
+        G.ViewManager.openLoaidng( function( loadingTag ) {
             let xhr = new XMLHttpRequest();
             xhr.timeout = TIMEOUT * 1000;
             xhr.onreadystatechange = function() {
@@ -62,7 +57,10 @@ let Http = {
                     strTips = Utils.format( G.I18N.get( 2 ), ( xhr.status ) );
                 }
 
-                G.ViewManager.closeLoadingHttp( loadingHttp );
+                G.ViewManager.closeLoading( loadingTag );
+                if( !Utils.isNull( strTips ) ) {
+                    G.ViewManager.openTips( strTips );
+                }
             };
             if( len === 3 ) {
                 xhr.open( "GET", url, true );

@@ -19,6 +19,8 @@ let Loading = cc.Class({
     ctor() {
         // 菊花节点
         this.m_nodeLoading = null;
+        // 菊花脚本
+        this.m_scriptLoading = null;
     },
 
     /**
@@ -31,9 +33,11 @@ let Loading = cc.Class({
         cc.loader.loadRes( PATH_NAME, function( _, prefab ) {
             this.m_nodeLoading = cc.instantiate( prefab );
             this.addToParent( parentNode, this.m_nodeLoading );
-            this.setText( text );
-            this.run();
-            completeCallbackFunc( Loading );
+
+            this.m_scriptLoading = this.m_nodeLoading.getComponent( "ComLoading" );
+            this.m_scriptLoading.setText( text );
+
+            completeCallbackFunc( this );
         }.bind( this ) );
     },
 
@@ -43,14 +47,6 @@ let Loading = cc.Class({
     destroy() {
         this.m_nodeLoading.destroy();
         this.m_nodeLoading = null;
-    },
-
-    /**
-     * 设置提示文字
-     * @param text {string} 提示文字
-     */
-    setText( text ) {
-        let labelText = this.m_nodeLoading.getChildByName( "" );
     },
 
     /**

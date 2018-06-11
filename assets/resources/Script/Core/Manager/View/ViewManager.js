@@ -105,7 +105,7 @@ let ViewManager = cc.Class({
     openLoaidng( completeCallbackFunc, text, parentNode ) {
         let loading = new Loading();
         if( !Utils.isNull( loading ) ) {
-            loading.create( completeCallbackFunc,text, parentNode );
+            loading.create( completeCallbackFunc, text, parentNode );
             this.m_listLoading.insert( loading );
         }
     },
@@ -113,34 +113,13 @@ let ViewManager = cc.Class({
     /**
      * 关闭网络加载菊花
      * @param loading {object} 菊花对象
+     * @param completeCallbackFunc {function} 菊花打开完成后的回调函数
      */
-    closeLoading( loading ) {
+    closeLoading( loading, completeCallbackFunc ) {
         if( !Utils.isNull( loading ) ) {
             loading.destroy();
             this.m_listLoading.delete( loading );
         }
-    },
-
-    /**
-     * 打开Http Loading
-     * @param parentNode {node} 父节点
-     * @param completeCallbackFunc {object} 打开成功后的回调
-     */
-    openLoadingHttp( parentNode, completeCallbackFunc ) {
-        let loadingHttp = new LoadingHttp();
-        loadingHttp.show( parentNode, completeCallbackFunc );
-        this.m_listLoading.insert( loadingHttp );
-
-        completeCallbackFunc(  );
-    },
-
-    /**
-     * 关闭Http Loading
-     * @param loadingHttp {object} loadingHtpp对象
-     */
-    closeLoadingHttp( loadingHttp ){
-        loadingHttp.hide();
-        this.m_listLoading.delete( loadingHttp );
     },
 
     /**

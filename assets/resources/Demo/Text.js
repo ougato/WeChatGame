@@ -37,7 +37,7 @@ cc.Class({
 
     onClick() {
         // this.arrLoading[this.index++] = G.ViewManager.openLoadingHttp( this.pFrame.node );
-        Http.get( "http://localhost:7456/" );
+        Http.get( "https://httpbin.org/get?show_env=1" );
     },
 
     onClick2() {

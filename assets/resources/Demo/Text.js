@@ -9,7 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 let Utils = require( "Utils" );
-
+let DefView = require( "DefView" );
 let Http = require( "Http" );
 
 cc.Class({
@@ -36,20 +36,23 @@ cc.Class({
     },
 
     onClick() {
-        // this.arrLoading[this.index++] = G.ViewManager.openLoadingHttp( this.pFrame.node );
+        // G.ViewManager.openLoading( "爱你哟" );
+        // this.arrLoading[this.index++] = G.ViewManager.openLoading();
         Http.get( "https://httpbin.org/get?show_env=1" );
     },
 
     onClick2() {
+        G.ViewManager.closeLoading();
+        // G.ViewManager.replaceScene( DefView.Scene.Lobby );
         // this.loading2 = G.ViewManager.openLoadingHttp( this.pFrame.node );
     },
 
     onClose1() {
-        G.ViewManager.closeLoadingHttp( this.arrLoading[--this.index] );
+        G.ViewManager.openLoading( "爱你哟" );
     },
 
     onClose2() {
-        G.ViewManager.closeLoadingHttp( this.arrLoading[--this.index] );
+        G.ViewManager.closeLoading( this.arrLoading[--this.index] );
     },
 
 

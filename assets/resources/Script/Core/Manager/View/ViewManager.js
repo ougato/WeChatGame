@@ -55,10 +55,10 @@ let ViewManager = cc.Class({
         this.m_objScene = null;
         // 当前预制体
         this.m_objPrefab = null;
-        // 提示视图对象
-        this.m_objTips = new Tips();
-        // 网络加载对象列表
-        this.m_listLoading = new List();
+        // Tips 对象
+        this.m_objTips = null;
+        // Loading 对象
+        this.m_objLoading = null;
 
 
         //（维护视图 我使用了两个结构 map用来快速查找 list用来方便视图的打开先后顺序）
@@ -85,6 +85,10 @@ let ViewManager = cc.Class({
             this.m_objTips.destroy();
             this.m_objTips = null;
         }
+        if( !Utils.isNull( this.m_objLoading ) ) {
+            this.m_objLoading.destroy();
+            this.m_objLoading = null;
+        }
         if( !Utils.isNull( this.m_mapPrefab ) ) {
             this.m_mapPrefab.clear();
             this.m_mapPrefab = null;
@@ -98,28 +102,17 @@ let ViewManager = cc.Class({
 
     /**
      * 打开网络加载菊花
-     * @param completeCallbackFunc {function} 菊花打开完成后的回调函数
-     * @param text {string} 文字提示
-     * @param parentNode {node} 菊花挂载父节点
+     * @param text {string} 提示文字
      */
-    openLoaidng( completeCallbackFunc, text, parentNode ) {
-        let loading = new Loading();
-        if( !Utils.isNull( loading ) ) {
-            loading.create( completeCallbackFunc, text, parentNode );
-            this.m_listLoading.insert( loading );
-        }
+    openLoading( text ) {
+        this.m_objLoading.show( text );
     },
 
     /**
      * 关闭网络加载菊花
-     * @param loading {object} 菊花对象
-     * @param completeCallbackFunc {function} 菊花打开完成后的回调函数
      */
-    closeLoading( loading, completeCallbackFunc ) {
-        if( !Utils.isNull( loading ) ) {
-            loading.destroy();
-            this.m_listLoading.delete( loading );
-        }
+    closeLoading() {
+        this.m_objLoading.hide();
     },
 
     /**
@@ -152,7 +145,7 @@ let ViewManager = cc.Class({
                 if( !lastView.getNode().active ) {
                     lastView.show();
                 }
-                return ;
+                return null;
             }
         }
         zorder = Utils.isNull( zorder ) ? DefView.Zorder.UI : zorder;
@@ -163,10 +156,7 @@ let ViewManager = cc.Class({
             }
             this.m_mapPrefab.set( pathName, view );
             this.m_listPrefab.insert( view );
-            // let zorderName = Utils.getKeyByValue( DefView.Zorder, zorder );
-            // let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" ).getChildByName( zorderName );
-            // zorderNode.addChild( node, zorder );
-            let zorderNode = this.m_objScene.getScene().getChildByName( "Canvas" );
+            let zorderNode = this.m_objScene.getNode();
             zorderNode.addChild( node, zorder );
             this.m_objPrefab = view;
             view.refresh();
@@ -211,30 +201,32 @@ let ViewManager = cc.Class({
      */
     replaceScene( name, data, callback ) {
         cc.director.loadScene( name, function( _, scene ) {
-            if( !Utils.isNull( this.m_objScene ) ) {
-                this.m_objScene.destroy();
-                this.m_objScene = null;
-                this.m_objPrefab = null;
-                this.m_mapPrefab.clear();
-                this.m_listPrefab.clear();
-            }
+            this.m_mapPrefab.clear();
+            this.m_listPrefab.clear();
+            this.m_objScene = null;
+            this.m_objPrefab = null;
+            this.m_objTips = null;
+            this.m_objLoading = null;
+
             let canvas = scene.getChildByName( "Canvas" );
-            // let designResolution = canvas.getComponent( cc.Canvas ).designResolution;
-            // for( let key in DefView.Zorder ) {
-            //     let node = new cc.Node();
-            //     node.setName( key );
-            //     node.setContentSize( designResolution.width, designResolution.height );
-            //     node.setPosition( 0, 0 );
-            //     canvas.addChild( node, DefView.Zorder[key] );
-            // }
             let view = new ViewScene( name, data );
             view.setScene( scene );
             view.setNode( canvas );
             view.refresh();
             this.m_objScene = view;
+
+            // 菊花加载
+            let loading = new Loading();
+            loading.init();
+            this.m_objLoading = loading;
+            // 飘动提示
+            let tips = new Tips();
+            // tips.init() ;
+            this.m_objTips = tips;
+
             // 场景加载完毕 告诉 调用者
             if( !Utils.isNull( callback ) ) {
-                callback( this.m_objScene );
+                callback( view );
             }
         }.bind( this ) );
     },
@@ -254,6 +246,27 @@ let ViewManager = cc.Class({
             this.m_objScene.setNode( canvas );
         }
         return this.m_objScene;
+    },
+
+    /**
+     * 添加菊花转
+     * @param canvas
+     * @private
+     */
+    _addLoading( canvas ) {
+
+        let loadingNode = this.m_nodeLoading.getNode();
+        canvas.addChild( loadingNode );
+
+        this.m_nodeLoading.hide();
+    },
+
+    /**
+     * 添加浮动条
+     * @private
+     */
+    _addTips() {
+        let tipsNode = this.m_node
     },
 
 });

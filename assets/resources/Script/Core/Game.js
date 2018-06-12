@@ -8,6 +8,7 @@
  */
 
 let Utils = require( "Utils" );
+let Config = require( "Config" );
 
 // 实例化对象
 let instance = null;
@@ -56,7 +57,8 @@ let Game = cc.Class({
         this.initSDK();
         // 初始化资源
         this.initRes();
-
+        // 进入游戏
+        this.intoGame();
     },
 
     /**
@@ -71,6 +73,13 @@ let Game = cc.Class({
      */
     initRes() {
 
+    },
+
+    /**
+     * 进入游戏
+     */
+    intoGame() {
+        G.ViewManager.replaceScene( Config.defaultScene );
     },
 
 });

@@ -40,44 +40,42 @@ let Http = {
             loadingParentNode = arguments[3];
         }
 
-        G.ViewManager.openLoaidng( function( loadingTag ) {
-            let xhr = new XMLHttpRequest();
-            xhr.timeout = TIMEOUT * 1000;
-            xhr.onreadystatechange = function() {
-                let strTips = null;
-                if ( xhr.readyState === 4 && ( xhr.status >= 200 && xhr.status < 400 ) ) {
+        G.ViewManager.openLoading();
+
+        let xhr = new XMLHttpRequest();
+        xhr.timeout = TIMEOUT * 1000;
+        xhr.onreadystatechange = function() {
+            let strTips = null;
+            if( xhr.readyState === 4 ) {
+                if( xhr.status >= 200 && xhr.status < 400 ) {
                     let response = xhr.responseText;
                     try {
                         let result = JSON.parse( response );
                         callback( result );
                     } catch( e ) {
-                        strTips = G.I18N.get( 1 );
+                        G.ViewManager.openTips( G.I18N.get( 1 ) );
                     }
                 } else {
-                    strTips = Utils.format( G.I18N.get( 2 ), ( xhr.status ) );
+                    G.ViewManager.openTips( Utils.format( G.I18N.get( 2 ), ( xhr.status ) ) );
                 }
-
-                G.ViewManager.closeLoading( loadingTag );
-                if( !Utils.isNull( strTips ) ) {
-                    G.ViewManager.openTips( strTips );
-                }
-            };
-            if( len === 3 ) {
-                xhr.open( "GET", url, true );
-                xhr.send();
-            } else if( len === 4 ) {
-                xhr.open( "POST", url, true );
-                if( Utils.isObject( data ) ) {
-                    try {
-                        data = JSON.stringify( data );
-                    } catch( e ) {
-                        G.ViewManager.openTips( G.I18N.get( 3 ) );
-                        return null;
-                    }
-                }
-                xhr.send( data );
+                G.ViewManager.closeLoading();
             }
-        } );
+        };
+        if( len === 3 ) {
+            xhr.open( "GET", url, true );
+            xhr.send();
+        } else if( len === 4 ) {
+            xhr.open( "POST", url, true );
+            if( Utils.isObject( data ) ) {
+                try {
+                    data = JSON.stringify( data );
+                } catch( e ) {
+                    G.ViewManager.openTips( G.I18N.get( 3 ) );
+                    return null;
+                }
+            }
+            xhr.send( data );
+        }
     },
 
     /**

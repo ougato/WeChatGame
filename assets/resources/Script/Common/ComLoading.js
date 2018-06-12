@@ -24,6 +24,14 @@ cc.Class({
         this.register();
     },
 
+    onEnable() {
+        this.runLoading();
+    },
+
+    onDisable() {
+        this.stopLoading();
+    },
+
     start () {
 
     },
@@ -42,7 +50,7 @@ cc.Class({
      * 初始化视图
      */
     initView() {
-        this.runLoading();
+        this.labelText.string = this.m_strText;
     },
 
     /**
@@ -76,9 +84,11 @@ cc.Class({
      * 转动菊花
      */
     runLoading() {
-        let rotateTo = cc.rotateBy( ROTATE_SEC, 360 );
-        let repeatForever = cc.repeatForever( rotateTo );
-        this.m_objAction = this.spriteLoading.node.runAction( repeatForever );
+        if( Utils.isNull( this.m_objAction ) ) {
+            let rotateTo = cc.rotateBy( ROTATE_SEC, 360 );
+            let repeatForever = cc.repeatForever( rotateTo );
+            this.m_objAction = this.spriteLoading.node.runAction( repeatForever );
+        }
     },
 
     /**
@@ -86,6 +96,9 @@ cc.Class({
      */
     stopLoading() {
          this.spriteLoading.node.runAction( this.m_objAction );
+         this.m_objAction = null;
+         this.m_strText = "";
+         this.labelText.string = "";
     },
 
     // update (dt) {},

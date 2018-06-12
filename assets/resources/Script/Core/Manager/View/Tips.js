@@ -83,9 +83,9 @@ let Tips = cc.Class({
      * @param text {string} 提示文字
      */
     show( text ) {
-        if( text === this.m_strCurrText ) {
-            return null;
-        }
+        // if( text === this.m_strCurrText ) {
+        //     return null;
+        // }
 
         this.hide();
         this.m_strCurrText = text;

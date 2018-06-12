@@ -33,7 +33,7 @@ const SCENE_PATH = "Scene/";
  * 场景
  */
 const Scene = {
-    WelCome: "WelCome",
+    Welcome: "Welcome",
     Lobby: "Lobby",
 
 };

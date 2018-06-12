@@ -45,21 +45,18 @@ let Http = {
         let xhr = new XMLHttpRequest();
         xhr.timeout = TIMEOUT * 1000;
         xhr.onreadystatechange = function() {
-            let strTips = null;
             if( xhr.readyState === 4 ) {
                 if( xhr.status >= 200 && xhr.status < 400 ) {
                     let response = xhr.responseText;
-                    try {
-                        let result = JSON.parse( response );
+                    let result = JSON.parse( response );
+                    if( !Utils.isNull( callback ) ) {
                         callback( result );
-                    } catch( e ) {
-                        G.ViewManager.openTips( G.I18N.get( 1 ) );
                     }
                 } else {
                     G.ViewManager.openTips( Utils.format( G.I18N.get( 2 ), ( xhr.status ) ) );
                 }
-                G.ViewManager.closeLoading();
             }
+            G.ViewManager.closeLoading();
         };
         if( len === 3 ) {
             xhr.open( "GET", url, true );
@@ -67,15 +64,11 @@ let Http = {
         } else if( len === 4 ) {
             xhr.open( "POST", url, true );
             if( Utils.isObject( data ) ) {
-                try {
-                    data = JSON.stringify( data );
-                } catch( e ) {
-                    G.ViewManager.openTips( G.I18N.get( 3 ) );
-                    return null;
-                }
+                data = JSON.stringify( data );
             }
             xhr.send( data );
         }
+
     },
 
     /**

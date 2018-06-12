@@ -38,7 +38,7 @@ cc.Class({
     onClick() {
         // G.ViewManager.openLoading( "爱你哟" );
         // this.arrLoading[this.index++] = G.ViewManager.openLoading();
-        Http.get( "https://httpbin.org/get?show_env=1" );
+        Http.get( "aaaa" );
     },
 
     onClick2() {

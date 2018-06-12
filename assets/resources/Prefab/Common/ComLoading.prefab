@@ -436,6 +436,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "nodeRoot": {
+      "__id__": 1
+    },
     "spriteBG": {
       "__id__": 3
     },

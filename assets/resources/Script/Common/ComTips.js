@@ -4,39 +4,131 @@
  */
 
 /**
- * 提示
+ * 漂浮提示加载
  */
 
 let UIBase = require( "UIBase" );
+let Utils = require( "Utils" );
+
+// 起始位置
+const ORIGIN_POS = cc.p( 0, 0 );
+// 目标位置
+const TARGET_POS = cc.p( 0, 200 );
+// 移动时间（s）
+const MOVE_SEC = 0.5;
+// 渐隐时间（s）
+const FADE_OUT_SEC = 2;
+// 描边大小
+const CONTOUR = 20;
 
 cc.Class({
     extends: UIBase,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        nodeRoot: { default: null, type: cc.Node, tooltip: "根节点" },
+        spriteBG: { default: null, type: cc.Sprite, tooltip: "背景图片" },
+        labelText: { default: null, type: cc.Label, tooltip: "提示文字" },
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    onLoad () {
+        this.initData();
+        this.initView();
+        this.register();
+    },
 
-    /**
-     * 加载视图前运行
-     */
+    onEnable() {
+
+    },
+
+    onDisable() {
+
+    },
+
     start () {
 
+    },
+
+    onDestroy() {
+        if( !Utils.isNull( this.m_objAction ) ) {
+            this.nodeRoot.stopAction( this.m_objAction );
+            this.m_objAction = null;
+        }
+        this.m_strText = "";
+    },
+
+    /**
+     * 初始化数据
+     */
+    initData() {
+        // 提示文字
+        this.m_strText = "";
+        // 转动漂浮提示 动作对象
+        this.m_objAction = null;
+    },
+
+    /**
+     * 初始化视图
+     */
+    initView() {
+        this.nodeRoot.active = false;
+    },
+
+    /**
+     * 注册事件
+     */
+    register() {
+
+    },
+
+    /**
+     * 设置提示文字
+     * @param text {string} 提示文字
+     */
+    setText( text ) {
+        if( Utils.isNull( text ) ) {
+            text = "";
+        }
+        this.m_strText = text;
+        this.labelText.string = text;
+    },
+
+    /**
+     * 获取提示文字
+     * @returns {string} 提示文字
+     */
+    getText() {
+        return this.m_strText;
+    },
+
+    /**
+     * 运动漂浮提示
+     */
+    runTips() {
+        this.stopTips();
+
+        let labelSize = this.labelText.node.getContentSize();
+        this.nodeRoot.height = labelSize.height + CONTOUR;
+        this.spriteBG.node.height = labelSize.height + CONTOUR;
+        this.nodeRoot.active = true;
+
+        let moveTo = cc.moveTo( MOVE_SEC, TARGET_POS );
+        let fadeOut = cc.fadeOut( FADE_OUT_SEC );
+
+        let sequence = cc.sequence( moveTo, fadeOut );
+        this.m_objAction = this.nodeRoot.runAction( sequence );
+    },
+
+    /**
+     * 停止漂浮提示
+     */
+    stopTips() {
+        if( !Utils.isNull( this.m_objAction ) ) {
+            this.nodeRoot.active = false;
+            this.nodeRoot.stopAction( this.m_objAction );
+            this.m_objAction = null;
+            this.nodeRoot.setPosition( ORIGIN_POS );
+            this.nodeRoot.opacity = 255;
+        }
     },
 
     // update (dt) {},

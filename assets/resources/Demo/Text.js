@@ -42,7 +42,7 @@ cc.Class({
     },
 
     onClick2() {
-        G.ViewManager.closeLoading();
+        G.ViewManager.openTips( "aaa" );
         // G.ViewManager.replaceScene( DefView.Scene.Lobby );
         // this.loading2 = G.ViewManager.openLoadingHttp( this.pFrame.node );
     },

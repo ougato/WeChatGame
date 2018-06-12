@@ -124,13 +124,6 @@ let ViewManager = cc.Class({
     },
 
     /**
-     * 关闭飘动提示
-     */
-    closeTips() {
-        this.m_objTips.hide();
-    },
-
-    /**
      * 打开预制体
      * @param pathName {string} 预制名（prefab文件夹后的路径+预制名）
      * @param data {object} 数据
@@ -216,13 +209,9 @@ let ViewManager = cc.Class({
             this.m_objScene = view;
 
             // 菊花加载
-            let loading = new Loading();
-            loading.init();
-            this.m_objLoading = loading;
+            this.m_objLoading = new Loading();
             // 飘动提示
-            let tips = new Tips();
-            // tips.init() ;
-            this.m_objTips = tips;
+            this.m_objTips = new Tips();
 
             // 场景加载完毕 告诉 调用者
             if( !Utils.isNull( callback ) ) {
@@ -246,27 +235,6 @@ let ViewManager = cc.Class({
             this.m_objScene.setNode( canvas );
         }
         return this.m_objScene;
-    },
-
-    /**
-     * 添加菊花转
-     * @param canvas
-     * @private
-     */
-    _addLoading( canvas ) {
-
-        let loadingNode = this.m_nodeLoading.getNode();
-        canvas.addChild( loadingNode );
-
-        this.m_nodeLoading.hide();
-    },
-
-    /**
-     * 添加浮动条
-     * @private
-     */
-    _addTips() {
-        let tipsNode = this.m_node
     },
 
 });

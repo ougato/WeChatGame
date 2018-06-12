@@ -4,14 +4,15 @@
  */
 
 /**
- * 网络加载菊花类
+ * 加载菊花类
  */
 
 let Utils = require( "Utils" );
 let DefView = require( "DefView" );
 
 // 路径名
-const PATH_NAME = "Prefab/Common/ComLoading";
+const PREFAB_PATH = "Prefab/Common/";
+const PREFAB_NAME = "ComLoading";
 
 let Loading = cc.Class({
     /**
@@ -22,29 +23,20 @@ let Loading = cc.Class({
         this.m_nodeLoading = null;
         // 菊花脚本
         this.m_scriptLoading = null;
+
+        // 加载菊花预制
+        this.load();
     },
 
     /**
-     * 初始化
-     * @param completeCallbackFunc {function} 菊花打开完成后的回调函数
-     * @param text {string} 提示文字
-     * @param parentNode {node} 菊花挂载的父节点
+     * 加载菊花预制
      */
-    init( completeCallbackFunc, text, parentNode ) {
-        cc.loader.loadRes( PATH_NAME, function( _, prefab ) {
+    load() {
+        cc.loader.loadRes( PREFAB_PATH + PREFAB_NAME, function( _, prefab ) {
             this.m_nodeLoading = cc.instantiate( prefab );
-            this.m_scriptLoading = this.m_nodeLoading.getComponent( "ComLoading" );
-
-            this._addToParent( parentNode, this.m_nodeLoading );
-
-            if( !Utils.isNull( text ) ) {
-                this.m_scriptLoading.setText( text );
-            }
-            if( !Utils.isNull( completeCallbackFunc ) ) {
-                completeCallbackFunc( this );
-            }
-
-            this.hide();
+            this.m_scriptLoading = this.m_nodeLoading.getComponent( PREFAB_NAME );
+            let parentNode = G.ViewManager.getScene().getNode();
+            parentNode.addChild( this.m_nodeLoading, DefView.Zorder.SYSTEM );
         }.bind( this ) );
     },
 
@@ -54,6 +46,7 @@ let Loading = cc.Class({
     destroy() {
         this.m_nodeLoading.destroy();
         this.m_nodeLoading = null;
+        this.m_scriptLoading = null;
     },
 
     /**
@@ -70,22 +63,6 @@ let Loading = cc.Class({
      */
     hide() {
         this.m_nodeLoading.active = false;
-    },
-
-    /**
-     * 添加到父类
-     * @param parent {node} 父节点
-     * @param child {node} 子节点
-     */
-    _addToParent( parent, child ) {
-        if( Utils.isNull( parent ) || !cc.valid( parent ) ) {
-            parent = G.ViewManager.getScene().getNode();
-        }
-        let parentSize = parent.getContentSize();
-        child.setContentSize( parentSize.width, parentSize.height );
-        let spriteBG = child.getChildByName( "Sprite_BG" );
-        spriteBG.setContentSize( parentSize.width, parentSize.height );
-        parent.addChild( child, DefView.Zorder.SYSTEM );
     },
 
 });

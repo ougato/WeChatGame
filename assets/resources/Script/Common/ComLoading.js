@@ -3,6 +3,10 @@
  * Copyright (c) 2018-05
  */
 
+/**
+ * 菊花加载
+ */
+
 let UIBase = require( "UIBase" );
 let Utils = require( "Utils" );
 
@@ -13,6 +17,7 @@ cc.Class({
     extends: UIBase,
 
     properties: {
+        nodeRoot: { default: null, type: cc.Node, tooltip: "根节点" },
         spriteBG: { default: null, type: cc.Sprite, tooltip: "背景图片" },
         labelText: { default: null, type: cc.Label, tooltip: "提示文字" },
         spriteLoading: { default: null, type: cc.Sprite, tooltip: "转圈菊花" },
@@ -36,6 +41,14 @@ cc.Class({
 
     },
 
+    onDestroy() {
+        if( !Utils.isNull( this.m_objAction ) ) {
+            this.spriteLoading.node.stopAction( this.m_objAction );
+            this.m_objAction = null;
+        }
+        this.m_strText = "";
+    },
+
     /**
      * 初始化数据
      */
@@ -50,7 +63,12 @@ cc.Class({
      * 初始化视图
      */
     initView() {
-        this.labelText.string = this.m_strText;
+        this.nodeRoot.active = false;
+
+        let parentNode = this.nodeRoot.getParent();
+        let parentSize = parentNode.getContentSize();
+        this.nodeRoot.setContentSize( parentSize );
+        this.spriteBG.node.setContentSize( parentSize );
     },
 
     /**
@@ -95,10 +113,11 @@ cc.Class({
      * 停止菊花
      */
     stopLoading() {
-         this.spriteLoading.node.runAction( this.m_objAction );
-         this.m_objAction = null;
-         this.m_strText = "";
-         this.labelText.string = "";
+        if( !Utils.isNull( this.m_objAction ) ) {
+            this.spriteLoading.node.stopAction( this.m_objAction );
+            this.m_objAction = null;
+        }
+        this.setText( "" );
     },
 
     // update (dt) {},

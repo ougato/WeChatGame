@@ -116,7 +116,7 @@ let Utils = {
      * "a=1 b=2"
      * @param str {string} 字符串
      * @param [] 变长参数
-     * @returns {Utils}
+     * @returns {*} 格式化后的字符串
      */
     format( str ) {
         function _removeFirst( arg ) {

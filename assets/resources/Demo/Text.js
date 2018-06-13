@@ -38,13 +38,16 @@ cc.Class({
     onClick() {
         // G.ViewManager.openLoading( "爱你哟" );
         // this.arrLoading[this.index++] = G.ViewManager.openLoading();
-        Http.get( "aaaa" );
+        Http.get( "https://httpbin.org/get?show_env=1", function( data ) {
+            cc.log( data );
+        } );
+        // Http.get( "https://www.baidu.com/s?wd=http", function( data ) {
+        //     cc.log( data );
+        // } );
     },
 
     onClick2() {
         G.ViewManager.openTips( "aaa" );
-        // G.ViewManager.replaceScene( DefView.Scene.Lobby );
-        // this.loading2 = G.ViewManager.openLoadingHttp( this.pFrame.node );
     },
 
     onClose1() {

@@ -4,7 +4,7 @@
  */
 
 /**
- * 游戏id
+ * id
  */
 const GameId = {
     // 大厅

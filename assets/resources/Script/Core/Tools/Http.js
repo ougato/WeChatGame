@@ -37,9 +37,11 @@ let Http = {
             if( xhr.readyState === 4 ) {
                 if( xhr.status >= 200 && xhr.status < 400 ) {
                     let response = xhr.responseText;
-                    let result = JSON.parse( response );
+                    if( Utils.isJson( response ) ) {
+                        response = JSON.parse( response );
+                    }
                     if( !Utils.isNull( callback ) ) {
-                        callback( result );
+                        callback( response );
                     }
                 } else {
                     G.ViewManager.openTips( Utils.format( G.I18N.get( 2 ), ( xhr.status ) ) );

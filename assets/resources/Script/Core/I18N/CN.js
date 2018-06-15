@@ -12,10 +12,8 @@ const language = {
     1: "HTTP 获取数据 解析JSON失败",
     2: "HTTP 请求返回 状态错误：{0}",
     3: "HTTP 请求数据 转换JSON失败",
-    4: "连接已超时",
+    4: "HTTP 连接已超时",
+    5: "上次进入游戏还存在",
 };
-
-
-
 
 module.exports = language;

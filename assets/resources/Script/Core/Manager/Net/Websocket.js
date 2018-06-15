@@ -7,10 +7,12 @@
  * 网络WebSocket
  */
 
+let DefNet = require( "DefNet" );
+
 // 实例化对象
 let instance = null;
 
-let NetWebSocket = cc.Class({
+let Websocket = cc.Class({
 
     /**
      * 构造
@@ -116,23 +118,6 @@ let NetWebSocket = cc.Class({
 
     },
 
-    http( url, str, callback ) {
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if ( xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status < 400 ) ) {
-                let response = xhr.responseText;
-                console.log( response );
-            }
-        };
-        if( !Utils.isNull( str ) && str.length > 0 ) {
-            xhr.open( "POST", url, true );
-            xhr.send();
-        } else {
-            xhr.open( "GET", url, true );
-            xhr.send();
-        }
-    },
-
     /**
      * 连接成功 回调
      */
@@ -171,4 +156,4 @@ let NetWebSocket = cc.Class({
 
 });
 
-module.exports = NetWebSocket;
+module.exports = Websocket;

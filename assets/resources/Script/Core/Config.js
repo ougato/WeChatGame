@@ -9,13 +9,13 @@
  */
 
 let DefLanguage = require( "DefLanguage" );
-let DefView = require( "DefView" );
+let ConfView = require( "ConfView" );
 
 const Config = {
     // 是否调试模式
     isDebug: false,
     // 默认场景
-    defaultScene: DefView.Scene.Welcome,
+    defaultScene: ConfView.Scene.Welcome,
     // 默认语言
     defaultLanguage: DefLanguage.CN,
 

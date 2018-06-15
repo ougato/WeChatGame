@@ -11,7 +11,8 @@ const Key = {
     Language: "Language",
     // 版本
     Version: "Version",
-    // ...
+    // 校验3rd_session
+    Token: "Token",
 };
 
 module.exports = Key;

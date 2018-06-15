@@ -93,6 +93,27 @@ let Utils = {
     },
 
     /**
+     * 判断是否类型为JSON
+     * @param value
+     */
+    isJson( value ) {
+        let flag = false;
+        if( typeof( value ) === "string" ) {
+            try {
+                let obj = JSON.parse( value );
+                if( this.isObject( obj ) ) {
+                    flag = true;
+                } else {
+                    flag = false;
+                }
+            } catch( e ) {
+                flag = false;
+            }
+        }
+        return flag;
+    },
+
+    /**
      * 获取key 通过value
      * @param object
      * @param value
@@ -130,7 +151,7 @@ let Utils = {
         let result = str;
         let args = _removeFirst( arguments );
         if( args.length > 0 ) {
-            for( let i = 0; i < args.length; i++ ) {
+            for( let i = 0; i < args.length; ++i ) {
                 if( args[i] !== undefined ) {
                     //let reg = new RegExp("({[" + i + "]})", "g");//这个在索引大于9时会有问题
                     let reg = new RegExp( "({)" + i + "(})", "g" );

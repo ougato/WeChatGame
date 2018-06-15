@@ -29,27 +29,8 @@ const PREFAB_PATH = "Prefab/";
  */
 const SCENE_PATH = "Scene/";
 
-/**
- * 场景
- */
-const Scene = {
-    Welcome: "Welcome",
-    Lobby: "Lobby",
-
-};
-
-/**
- * 预制
- */
-const Prefab = {
-
-};
-
 module.exports = {
-    SPAN: SPAN,
     Zorder: Zorder,
     PREFAB_PATH: PREFAB_PATH,
     SCENE_PATH: SCENE_PATH,
-    Scene: Scene,
-    Prefab: Prefab,
 };

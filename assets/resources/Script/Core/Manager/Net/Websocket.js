@@ -99,14 +99,14 @@ let Websocket = cc.Class({
      * 开始心跳
      */
     startHeart() {
-        this.schedule( this.m_funcHeartCallback, DefNet.Const.HEAR_GAP );
+        this.m_nTimeoutId = setInterval( this.m_funcHeartCallback, DefNet.Const.HEAR_GAP );
     },
 
     /**
      * 关闭心跳
      */
     stopHeart() {
-        this.unschedule( this.m_funcHeartCallback );
+        clearInterval( this.m_nTimeoutId );
     },
 
     /**

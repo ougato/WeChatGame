@@ -9,10 +9,9 @@
 
 let Utils = require( "Utils" );
 let Http = require( "Http" );
-let StoreManager = require( "StoreManager" );
-let DefStore = require( "DefStore" );
 let ConfUrl = require( "ConfUrl" );
-let Websocket = require( "Websocket" );
+let NetGame = require( "NetGame" );
+let NetLobby = require( "NetLobby" );
 
 // 实例化对象
 let instance = null;
@@ -54,6 +53,8 @@ let NetManager = cc.Class({
         // 游戏网络对象
         this.m_objGameWS = null;
 
+        // 网络接收回调
+        this.m_arrS2CFunc = [];
     },
 
     /**
@@ -70,6 +71,15 @@ let NetManager = cc.Class({
     },
 
     /**
+     * 注册网络消息
+     * @param code 协议消息ID
+     * @param callback 接收回调函数
+     */
+    register( code, callback ) {
+        this.m_arrS2CFunc[code] = callback;
+    },
+
+    /**
      * @overload 重载函数
      * 连接大厅网络
      * @param ws {string} 链接地址
@@ -77,7 +87,8 @@ let NetManager = cc.Class({
      */
     _connect1( ws ) {
         if( Utils.isNull( this.m_objLobbyWS ) ) {
-            this.m_objLobbyWS = new Websocket( ws );
+            this.m_objLobbyWS = new NetLobby();
+            this.m_objLobbyWS.connect( ws );
         }
     },
 
@@ -92,12 +103,10 @@ let NetManager = cc.Class({
         let http = new Http();
         let url = Utils.format( ConfUrl.Game, modeId );
         http.get( url, function( data ) {
-            if( !Utils.isNull( this.m_objGameWS ) ) {
-                G.ViewManager.openTips( G.I18N.get( 5 ) );
-                return null;
+            if( Utils.isNull( this.m_objGameWS ) ) {
+                this.m_objGameWS = new NetGame();
+                this.m_objGameWS.connect( data );
             }
-            let ws = new Websocket();
-            ws.connect( data );
         } );
     },
 
@@ -107,19 +116,17 @@ let NetManager = cc.Class({
      */
     connect() {
         let arg = arguments[0];
-        if( !Utils.isNull( arg ) ) {
-            if( Utils.isString( arg ) ) {
-                this._connect1( arg );
-            } else if( Utils.isNumber( arg ) ) {
-                this._connect2( arg );
-            }
+        if( Utils.isString( arg ) ) {
+            this._connect1( arg );
+        } else if( Utils.isNumber( arg ) ) {
+            this._connect2( arg );
         }
     },
 
     /**
      * 获取大厅网络
      */
-    getLoobyNet() {
+    getLobbyNet() {
         return this.m_objLobbyWS;
     },
 

@@ -10,9 +10,11 @@
 let Utils = require( "Utils" );
 let DefNet = require( "DefNet" );
 let NetManager = require( "NetManager" );
+let ViewManager = require( "ViewManager" );
+let I18N = require( "I18N" );
 
 let NetBase = cc.Class({
-
+ 
     /**
      * 构造
      */
@@ -25,8 +27,10 @@ let NetBase = cc.Class({
         this.m_nReconectCount = 0;
         // 发送队列
         this.m_objSendQueue = [];
-        // 超时定时器
-        this.m_nTimeoutId = 0;
+        // 发送超时定时器
+        this.m_nSendTimerId = 0;
+        // 心跳超时定时器
+        this.m_nPingTimerId = 0;
 
         this.addProto();
 
@@ -46,7 +50,7 @@ let NetBase = cc.Class({
     addProto() {
         // TODO 注册网络消息
         let code = 0;
-        NetManager.getInstance().register( code, this.S2CPing.bind( this ) );
+        NetManager.getInstance().register( code, this.s2cPing.bind( this ) );
     },
 
     /**
@@ -76,7 +80,7 @@ let NetBase = cc.Class({
      */
     onOpen() {
         this.m_nState = DefNet.State.OPEN;
-        this.startHeart();
+        this.startPing();
     },
 
     /**
@@ -84,7 +88,11 @@ let NetBase = cc.Class({
      * @param event {object} 事件对象
      */
     onMessage( event ) {
-
+        // // TODO Protobuf 回来的协议数据，消息ID和消息数据 处理注册回调
+        // let code = event.id;
+        // let data = event.data;
+        // let callback = NetManager.getInstance().getCallbackByCode( code );
+        // callback( event );
     },
 
     /**
@@ -92,7 +100,7 @@ let NetBase = cc.Class({
      */
     onError() {
         this.m_nState = DefNet.State.ERROR;
-
+        this.stopPing();
     },
 
     /**
@@ -104,40 +112,69 @@ let NetBase = cc.Class({
     },
 
     /**
+     * 是否心跳
+     * @param code {number} 协议号
+     */
+    isPing( code ) {
+        // // 判断心跳ID
+        // let flag = false;
+        // // TODO 判断code是否等于心跳ID
+        // if( code === null ) {
+        //     flag = true;
+        // }
+        // return flag
+    },
+
+    /**
      * 发送通信数据
      */
     send( data ) {
-        this.m_objWS.send( data );
+        // // TODO Protobuf 序列化后发送
+        // if( this.m_nState !== DefNet.State.OPEN ) {
+        //     ViewManager.getInstance().openTips( I18N.getInstance().get( 6 ) );
+        //     return null;
+        // }
+        // this.m_objWS.send( data );
+        // if( !this.isPing() ) {
+        //     this.m_nSendTimerId = this.setTimeout( , DefNet.Const.MESSAGE_TIMEOUT );
+        // }
+    },
+
+    /**
+     * 发送消息超时
+     */
+    onSendTimeout() {
+
     },
 
     /**
      * 发送心跳
      */
-    C2SPing() {
-
+    c2sPing() {
+        // TODO 发送心跳
     },
 
     /**
      * 接收心跳
      */
-    S2CPing( data ) {
-
+    s2cPing( data ) {
+        // TODO 接收心跳
     },
 
     /**
      * 开始心跳
      */
     startPing() {
-        this.m_nTimeoutId = setInterval( function() {
-            this.C2SPing();
-        }.bind( this ), DefNet.Const.HEAR_GAP );
+        this.m_nPingTimerId = setInterval( function() {
+            this.c2sPing();
+        }.bind( this ), DefNet.Const.PING_GAP );
     },
 
     /**
      * 关闭心跳
      */
     stopPing() {
-        clearInterval( this.m_nTimeoutId );
+        clearInterval( this.m_nPingTimerId );
     },
 
 });

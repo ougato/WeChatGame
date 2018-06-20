@@ -34,7 +34,7 @@ let Const = {
     // 重连间隔时间(s)
     RECONNECT_GAP: 3,
     // 心跳间隔时间(s)
-    HEAR_GAP: 3,
+    PING_GAP: 3,
 
 };
 

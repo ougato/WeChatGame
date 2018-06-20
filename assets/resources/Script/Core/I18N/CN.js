@@ -14,6 +14,8 @@ const language = {
     3: "HTTP 请求数据 转换JSON失败",
     4: "HTTP 连接已超时",
     5: "上次进入游戏还存在",
+    6: "网络已断开",
+
 };
 
 module.exports = language;

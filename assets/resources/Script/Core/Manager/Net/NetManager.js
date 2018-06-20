@@ -80,6 +80,14 @@ let NetManager = cc.Class({
     },
 
     /**
+     * 获取注册网络回调函数
+     * @param code 协议消息ID
+     */
+    getCallbackByCode( code ) {
+        return this.m_arrS2CFunc[code];
+    },
+
+    /**
      * @overload 重载函数
      * 连接大厅网络
      * @param ws {string} 链接地址

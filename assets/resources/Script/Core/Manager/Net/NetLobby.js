@@ -16,7 +16,8 @@ let NetLobby = cc.Class({
      * 构造
      */
     ctor() {
-
+        // 心跳消息ID
+        this.m_nPingCmd = 100;
     },
 
     /**

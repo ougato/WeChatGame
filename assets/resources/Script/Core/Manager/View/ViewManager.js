@@ -124,6 +124,14 @@ let ViewManager = cc.Class({
     },
 
     /**
+     * 打开日志提示
+    * @param text {string} 提示文字
+     */
+    openLog( text ) {
+        this.m_objTips.show( text );
+    },
+
+    /**
      * 打开预制体
      * @param pathName {string} 预制名（prefab文件夹后的路径+预制名）
      * @param data {object} 数据

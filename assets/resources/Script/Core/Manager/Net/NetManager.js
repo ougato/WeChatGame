@@ -71,23 +71,6 @@ let NetManager = cc.Class({
     },
 
     /**
-     * 注册网络消息
-     * @param code 协议消息ID
-     * @param callback 接收回调函数
-     */
-    register( code, callback ) {
-        this.m_arrS2CFunc[code] = callback;
-    },
-
-    /**
-     * 获取注册网络回调函数
-     * @param code 协议消息ID
-     */
-    getCallbackByCode( code ) {
-        return this.m_arrS2CFunc[code];
-    },
-
-    /**
      * @overload 重载函数
      * 连接大厅网络
      * @param ws {string} 链接地址
@@ -115,13 +98,13 @@ let NetManager = cc.Class({
                 this.m_objGameWS = new NetGame();
                 this.m_objGameWS.connect( data );
             }
-        } );
+        }.bind( this ) );
     },
 
     /**
      * 连接网络
      * @param ws|modeId {string|number} 网络ID
-     */
+                     */
     connect() {
         let arg = arguments[0];
         if( Utils.isString( arg ) ) {
@@ -130,21 +113,6 @@ let NetManager = cc.Class({
             this._connect2( arg );
         }
     },
-
-    /**
-     * 获取大厅网络
-     */
-    getLobbyNet() {
-        return this.m_objLobbyWS;
-    },
-
-    /**
-     * 获取游戏网络
-     */
-    getGameNet() {
-        return this.m_objGameWS;
-    },
-
 
 });
 

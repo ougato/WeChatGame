@@ -95,6 +95,7 @@ let Utils = {
     /**
      * 判断是否类型为JSON
      * @param value
+     * @returns {boolean}
      */
     isJson( value ) {
         let flag = false;

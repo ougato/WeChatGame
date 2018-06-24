@@ -35,6 +35,10 @@ cc.Class({
 
     },
 
+    onSend() {
+        G.NetManager.connect( "ws://192.168.1.24:8181/" );
+    },
+
     onClick() {
         // G.ViewManager.openLoading( "爱你哟" );
         // this.arrLoading[this.index++] = G.ViewManager.openLoading();

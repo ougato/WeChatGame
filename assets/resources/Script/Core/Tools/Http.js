@@ -48,7 +48,7 @@ let Http = {
                 }
                 G.ViewManager.closeLoading();
             }
-        };
+        }.bind( this );
         // 超时回调
         xhr.ontimeout = function() {
             G.ViewManager.openTips( G.I18N.get( 4 ) );
